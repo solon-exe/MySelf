@@ -17,57 +17,38 @@ struct SplashView: View {
             case .loading:
                 loadingView()
             case . goToSignInScreen:
-                viewModel.SignInView()
+                Text("login")
             case .goToHomeScreen:
                 Text("Home")
             case .error(let msg):
                 loadingView(error: msg)
-                    
             }
-        }.onAppear(perform: viewModel.onAppear)
+        }.onAppear(perform: {
+            viewModel.onAppear()
+        })
     }
 }
 
-struct LoadingView: View {
-    var body: some View {
+extension SplashView {
+    func loadingView(error: String? = nil) -> some View {
         ZStack {
             Image("MySelf_logo")
                 .resizable()
                 .scaledToFit()
                 .foregroundStyle(.tint)
+            
+            if let error = error {
+                Text("")
+                    .alert(isPresented: .constant(true)) {
+                        Alert(
+                            title: Text("MySelf"),
+                            message: Text(error),
+                            dismissButton: .default(Text("Ok")) {
+                                // faz algo quando some o alerta
+                            })
+                    }
+            }
         }
-        .padding()
-    }
-}
-
-extension SplashView {
-    var loading: some View {
-        ZStack {
-            Image("MySelf_logo")
-                .resizable()
-                .scaledToFit()
-                .foregroundStyle(.tint)
-        }
-    }
-}
-
-extension SplashView {
-   func loadingView(error: String? = nil) -> some View {
-       ZStack {
-           Image("MySelf_logo")
-               .resizable()
-               .scaledToFit()
-               .foregroundStyle(.tint)
-           
-           if let error = error {
-               Text("")
-                   .alert(isPresented: .constant(true)) {
-                       Alert(title: Text("MySelf"), message: Text(error), dismissButton: .default(Text("Ok")) {
-                           // faz algo quando some o alerta
-                       })
-                   }
-           }
-       }
     }
 }
 
