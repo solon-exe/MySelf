@@ -1,0 +1,12 @@
+//
+//  HomeViewModel.swift
+//  MySelf
+//
+//  Created by Solon Rios Soares on 30/07/26.
+//
+import SwiftUI
+import Combine
+
+class HomeViewModel: ObservableObject {
+    
+}

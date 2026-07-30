@@ -8,23 +8,22 @@
 import SwiftUI
 
 struct SplashView: View {
-    
     @ObservedObject var viewModel: SplashViewModel
-    
+
     var body: some View {
         Group {
-            switch viewModel.uiState {
+            switch self.viewModel.uiState {
             case .loading:
                 loadingView()
-            case . goToSignInScreen:
-                Text("login")
+            case .goToSignInScreen:
+                SignInView(viewModel: SignInViewModel())
             case .goToHomeScreen:
                 Text("Home")
-            case .error(let msg):
+            case let .error(msg):
                 loadingView(error: msg)
             }
         }.onAppear(perform: {
-            viewModel.onAppear()
+            self.viewModel.onAppear()
         })
     }
 }
@@ -36,8 +35,8 @@ extension SplashView {
                 .resizable()
                 .scaledToFit()
                 .foregroundStyle(.tint)
-            
-            if let error = error {
+
+            if let error {
                 Text("")
                     .alert(isPresented: .constant(true)) {
                         Alert(
@@ -45,7 +44,8 @@ extension SplashView {
                             message: Text(error),
                             dismissButton: .default(Text("Ok")) {
                                 // faz algo quando some o alerta
-                            })
+                            }
+                        )
                     }
             }
         }
