@@ -17,26 +17,31 @@ struct SignInView: View {
     @State var password: String = ""
 
     var body: some View {
-        ScrollView(showsIndicators: false) {
-            VStack(alignment: .center) {
-                Image("MySelf_logo")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 220, height: 220)
+        NavigationView {
+            ScrollView(showsIndicators: false) {
+                VStack(alignment: .center, spacing: 8) {
+                    Image("MySelf_logo")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 220, height: 220)
 
-                Text("Login")
-                    .foregroundColor(.blue)
-                    .font(Font.system(.title).bold())
-                    .padding(8)
+                    Text("Login")
+                        .foregroundColor(.blue)
+                        .font(Font.system(.title).bold())
+                        .padding(8)
 
-                usernameField
+                    usernameField
 
-                passwordField
+                    passwordField
 
-                signInButton
-               
+                    signInButton
+                    
+                    signUpButton
+                   
+                }
             }
         }
+        
     }
 }
 
@@ -60,6 +65,25 @@ extension SignInView {
     var signInButton: some View {
         Button("Sign In") {
             self.viewModel.login(username: self.username, password: self.password)
+        }
+    }
+}
+
+extension SignInView {
+    var signUpButton: some View {
+        VStack(alignment: .center) {
+            Text("Don't have an account?")
+                .foregroundColor(.gray)
+                .padding(25)
+            
+            Text("Sign Up")
+                .foregroundColor(.blue)
+            
+//            NavigationLink(
+//                destination: self.viewModel.signUpView(),
+//                
+//            )
+            
         }
     }
 }

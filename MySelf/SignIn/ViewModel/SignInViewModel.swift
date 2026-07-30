@@ -20,3 +20,9 @@ class SignInViewModel: ObservableObject {
         }
     }
 }
+
+//extension SignInViewModel {
+//    func homeView() -> some View {
+//        SignInViewRouter
+//    }
+//}
