@@ -12,8 +12,16 @@ struct HomeView: View {
     
     @ObservedObject var viewModel: HomeViewModel
     
+    var list: [String] = ["abacaxi", "banana", "caju", "coco", "dendê"]
+    
     var body: some View {
-        Text("Home")
+            List {
+                Section("List") {
+                    ForEach(list, id: \.self) { ListItem in
+                        Text(ListItem)
+                    }
+                }
+            }
     }
 }
 
