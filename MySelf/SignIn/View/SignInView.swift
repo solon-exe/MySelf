@@ -13,10 +13,9 @@ struct SignInView: View {
     @ObservedObject var viewModel: SignInViewModel
     
     
-    @State var username: String = ""
-    @State var password: String = ""
-    
     @State var action: Int? = 0
+    
+    @State var navigationHidden = true
     
     var body: some View {
         ZStack {
@@ -26,29 +25,38 @@ struct SignInView: View {
                 NavigationView {
                     
                     ScrollView(showsIndicators: false) {
-                        
-                        VStack(alignment: .center, spacing: 8) {
+                    
+                        VStack(alignment: .center, spacing: 20) {
+                            Spacer(minLength: 36)
                             
-                            Image("MySelf_logo")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 220, height: 220)
+                            VStack(alignment: .center, spacing: 8) {
+                                Image("MySelf_logo")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 220, height: 220)
 
-                            Text("Login")
-                                .foregroundColor(.blue)
-                                .font(Font.system(.title).bold())
-                                .padding(8)
+                                Text("Login")
+                                    .foregroundColor(.blue)
+                                    .font(Font.system(.title).bold())
+                                    .padding(8)
 
-                            usernameField
+                                usernameField
 
-                            passwordField
+                                passwordField
 
-                            signInButton
+                                signInButton
+                                
+                                signUpLink
+                               
+                            }
                             
-                            signUpLink
-                           
                         }
+                        
+                        
                     }
+                    .padding(.horizontal, 32)
+                    .navigationBarTitle("Login", displayMode: .inline)
+                    .navigationBarHidden(self.navigationHidden)
                 }
             }
         }
@@ -59,24 +67,27 @@ struct SignInView: View {
 
 extension SignInView {
     var usernameField: some View {
-        TextField("Username", text: self.$username)
-            .padding(16)
-            .border(Color.gray)
+        EditTextView(text: $viewModel.username,
+                     placeholder: "Username",
+                     error: "invalid username",
+                     failure: viewModel.username.count < 5)
     }
 }
 
 extension SignInView {
     var passwordField: some View {
-        SecureField("Password", text: self.$password)
-            .padding(16)
-            .border(Color.gray)
+        EditTextView(text: $viewModel.password,
+                     placeholder: "Password",
+                     error: "invalid password",
+                     failure: viewModel.password.count < 6,
+                     isSecure: true)
     }
 }
 
 extension SignInView {
     var signInButton: some View {
         Button("Sign In") {
-            self.viewModel.login(username: self.username, password: self.password)
+            self.viewModel.login(username: self.viewModel.username, password: self.viewModel.password)
         }
     }
 }
