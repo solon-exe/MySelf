@@ -9,13 +9,8 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @State var fullName: String = ""
-    @State var email: String = ""
-    @State var username: String = ""
-    @State var password: String = ""
-    @State var confirmPassword: String = ""
-    @State var phone: String = ""
-    @State var birhtday: String = ""
+    @ObservedObject var viewModel: SignUpViewModel
+    
     // TODO: gender
     
     var body: some View {
@@ -55,67 +50,67 @@ struct SignUpView: View {
 
 extension SignUpView {
     var fullNameField: some View {
-        EditTextView(text: $fullName,
+        EditTextView(text: $viewModel.fullName,
                      placeholder: "full name",
                      error: "invalid full name",
-                     failure: fullName.count < 3)
+                     failure: viewModel.fullName.count < 3)
     }
 }
 
 extension SignUpView {
     var emailField: some View {
-        EditTextView(text: $email,
+        EditTextView(text: $viewModel.email,
                      placeholder: "email",
                      error: "invalid email",
-                     failure: email.count < 3)
+                     failure: viewModel.email.count < 3)
     }
 }
 
 extension SignUpView {
     var usernameField: some View {
-        EditTextView(text: $username,
+        EditTextView(text: $viewModel.username,
                      placeholder: "username",
                      error: "invalid username",
-                     failure: username.count < 3)
+                     failure: viewModel.username.count < 3)
     }
 }
 
 extension SignUpView {
     var passwordField: some View {
-        EditTextView(text: $password,
+        EditTextView(text: $viewModel.password,
                      placeholder: "password",
                      error: "invalid password",
-                     failure: password.count < 3)
+                     failure: viewModel.password.count < 3)
     }
 }
 
 extension SignUpView {
     var confirmPasswordField: some View {
-        EditTextView(text: $confirmPassword,
+        EditTextView(text: $viewModel.confirmPassword,
                      placeholder: "confirmed password",
                      error: "invalid password",
-                     failure: confirmPassword.count < 3)
+                     failure: viewModel.confirmPassword.count < 3)
     }
 }
 
 extension SignUpView {
     var phoneField: some View {
-        EditTextView(text: $phone,
+        EditTextView(text: $viewModel.phone,
                      placeholder: "phone",
                      error: "invalid phone",
-                     failure: phone.count < 3)
+                     failure: viewModel.phone.count < 3)
     }
 }
 
 extension SignUpView {
     var birhtdateField: some View {
-        EditTextView(text: $birhtday,
+        EditTextView(text: $viewModel.birhtday,
                      placeholder: "phone",
                      error: "invalid phone",
-                     failure: phone.count < 3)
+                     failure: viewModel.phone.count < 3)
     }
 }
 
 #Preview {
-    SignUpView()
+    SignUpView(viewModel: SignUpViewModel())
 }
