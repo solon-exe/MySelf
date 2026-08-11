@@ -9,4 +9,5 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     
+    @Published var newItem: String = ""
 }

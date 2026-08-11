@@ -20,7 +20,7 @@ struct SignInView: View {
     var body: some View {
         ZStack {
             if case SignInUIState.goToHomeScreen = viewModel.uiState { // virifica se o UIState recebe o estado de goToHomeScreen, se receber muda a tela
-                Text("home")
+                HomeView(viewModel: HomeViewModel())
             } else {
                 NavigationView {
                     

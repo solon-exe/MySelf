@@ -15,13 +15,20 @@ struct HomeView: View {
     var list: [String] = ["abacaxi", "banana", "caju", "coco", "dendê"]
     
     var body: some View {
+        VStack {
+            HStack {
+                EditTextView(text: self.$viewModel.newItem,
+                              placeholder: "Add new item")
+            }
             List {
-                Section("List") {
+                Section("") {
                     ForEach(list, id: \.self) { ListItem in
                         Text(ListItem)
                     }
                 }
             }
+        }
+        
     }
 }
 
