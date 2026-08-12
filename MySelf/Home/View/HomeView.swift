@@ -12,18 +12,34 @@ struct HomeView: View {
     
     @ObservedObject var viewModel: HomeViewModel
     
-    var list: [String] = ["abacaxi", "banana", "caju", "coco", "dendê"]
     
     var body: some View {
         VStack {
+            Text("List")
+                .font(Font.largeTitle.bold())
             HStack {
                 EditTextView(text: self.$viewModel.newItem,
-                              placeholder: "Add new item")
+                              placeholder: "ex: banana")
+                
+                Button {
+                    self.viewModel.addItem()
+                } label: {
+                    HStack {
+                        Image(systemName: "plus.circle.fill")
+                        Text("Add item")
+                    }
+                    
+                }
+                .padding(.bottom, 10)
+                .buttonStyle(.borderedProminent)
+                .disabled(viewModel.newItem.isEmpty)
+
             }
+            .padding(.horizontal)
             List {
                 Section("") {
-                    ForEach(list, id: \.self) { ListItem in
-                        Text(ListItem)
+                    ForEach(viewModel.list) { Item in
+                        Text(Item.name)
                     }
                 }
             }
