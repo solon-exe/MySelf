@@ -9,13 +9,8 @@ import SwiftUI
 
 struct SignUpView: View {
     
-    @State var fullName: String = ""
-    @State var email: String = ""
-    @State var username: String = ""
-    @State var password: String = ""
-    @State var confirmPassword: String = ""
-    @State var phone: String = ""
-    @State var birhtdate: String = ""
+    @ObservedObject var viewModel: SignUpViewModel
+    
     // TODO: gender
     
     var body: some View {
@@ -41,63 +36,81 @@ struct SignUpView: View {
                     confirmPasswordField
                     
                     phoneField
+                    
+                    phoneField
                 }
                 
             }
+        
         }
+        .padding()
         
     }
 }
 
 extension SignUpView {
     var fullNameField: some View {
-        TextField("Full Name", text: $fullName)
-            .border(Color.cyan)
+        EditTextView(text: $viewModel.fullName,
+                     placeholder: "full name",
+                     error: "invalid full name",
+                     failure: viewModel.fullName.count < 3)
     }
 }
 
 extension SignUpView {
     var emailField: some View {
-        TextField("Email", text: $email)
-            .border(Color.black)
+        EditTextView(text: $viewModel.email,
+                     placeholder: "email",
+                     error: "invalid email",
+                     failure: viewModel.email.count < 3)
     }
 }
 
 extension SignUpView {
     var usernameField: some View {
-        TextField("Username", text: $username)
-            .border(Color.cyan)
+        EditTextView(text: $viewModel.username,
+                     placeholder: "username",
+                     error: "invalid username",
+                     failure: viewModel.username.count < 3)
     }
 }
 
 extension SignUpView {
     var passwordField: some View {
-        TextField("Password", text: $password)
-            .border(Color.black)
+        EditTextView(text: $viewModel.password,
+                     placeholder: "password",
+                     error: "invalid password",
+                     failure: viewModel.password.count < 3)
     }
 }
 
 extension SignUpView {
     var confirmPasswordField: some View {
-        TextField("Confirm Password", text: $confirmPassword)
-            .border(Color.cyan)
+        EditTextView(text: $viewModel.confirmPassword,
+                     placeholder: "confirmed password",
+                     error: "invalid password",
+                     failure: viewModel.confirmPassword.count < 3)
     }
 }
 
 extension SignUpView {
     var phoneField: some View {
-        TextField("Phone", text: $phone)
-            .border(Color.black)
+        EditTextView(text: $viewModel.phone,
+                     placeholder: "phone",
+                     error: "invalid phone",
+                     failure: viewModel.phone.count < 3)
     }
 }
 
 extension SignUpView {
     var birhtdateField: some View {
-        TextField("Birthdate", text: $birhtdate)
-            .border(Color.cyan)
+        EditTextView(text: $viewModel.birhtday,
+                     placeholder: "phone",
+                     error: "invalid phone",
+                     failure: viewModel.phone.count < 3)
     }
 }
 
 #Preview {
-    SignUpView()
+    SignUpView(viewModel: SignUpViewModel())
 }

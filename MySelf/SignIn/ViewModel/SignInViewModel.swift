@@ -10,6 +10,9 @@ import Combine
 
 class SignInViewModel: ObservableObject {
     
+    @Published var username: String = ""
+    @Published var password: String = ""
+    
     @Published var uiState: SignInUIState = .none
     
     func login(username _: String, password _: String) {

@@ -9,4 +9,15 @@ import Combine
 
 class HomeViewModel: ObservableObject {
     
+    @Published var newItem: String = ""
+    
+    @Published var list: [Items] = []
+    
+}
+
+extension HomeViewModel {
+    func addItem() {
+        list.append(Items(name: newItem))
+        newItem = ""
+    }
 }
