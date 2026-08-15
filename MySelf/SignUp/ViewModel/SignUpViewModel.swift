@@ -18,4 +18,6 @@ class SignUpViewModel: ObservableObject {
     @Published var phone: String = ""
     @Published var birhtday: String = ""
     
+// TODO: Implement a func to verify the username and another fields exist whith fin signUpUser() using guard let
+    
 }
