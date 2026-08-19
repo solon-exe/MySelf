@@ -10,12 +10,12 @@ import SwiftUI
 struct GithubProfileView: View {
     
     // TODO: transfer to ViewModel @Published
-    @State private var user: GithubUser?
+    @ObservedObject var viewModel: GithubProfileViewModel
     
     var body: some View {
         VStack {
             
-            AsyncImage(url: URL(string: user?.avatarUrl ?? "")) { image in
+            AsyncImage(url: URL(string: viewModel.user?.avatarUrl ?? "")) { image in
                 image
                     .resizable()
                     .aspectRatio(contentMode: .fit)
@@ -26,11 +26,11 @@ struct GithubProfileView: View {
             }
             .frame(width: 120, height: 120)
             
-            Text(user?.login ?? "Login Placeholder")
+            Text(viewModel.user?.login ?? "Login Placeholder")
                 .bold()
                 .font(.title3)
             
-            Text(user?.bio ?? "Bio Placeholder")
+            Text(viewModel.user?.bio ?? "Bio Placeholder")
                 .padding()
             
             Spacer()
@@ -40,7 +40,7 @@ struct GithubProfileView: View {
         // exibicao de erro na tela UI
         .task { // rever o que e task
             do {
-                user = try await getUser() // rever
+                viewModel.user = try await getUser() // rever
             } catch GHError.invalidURL {
                 print("invalid URL")
             } catch GHError.invalidResponse {
@@ -78,7 +78,7 @@ struct GithubProfileView: View {
 }
 
 #Preview {
-    GithubProfileView()
+    GithubProfileView(viewModel: GithubProfileViewModel())
 }
 
 // TODO: transfer this struct to another folder using MVVM
