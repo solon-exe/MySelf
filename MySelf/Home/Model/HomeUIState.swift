@@ -1,13 +1,12 @@
 //
-//  HomeViewModel.swift
+//  HomeUIState.swift
 //  MySelf
 //
 //  Created by Solon Rios Soares on 24/08/26.
 //
 
 import Foundation
-import Combine
 
-class HomeViewModel: ObservableObject {
+enum HomeUIState: Hashable{
+    case github
 }
-
