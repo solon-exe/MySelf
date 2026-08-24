@@ -9,33 +9,40 @@ import SwiftUI
 
 struct GithubProfileView: View {
     
-    // TODO: transfer to ViewModel @Published
     @ObservedObject var viewModel: GithubProfileViewModel
     
     var body: some View {
-        VStack {
-            
-            AsyncImage(url: URL(string: viewModel.user?.avatarUrl ?? "")) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(Circle())
-            } placeholder: {
-                Circle()
-                    .foregroundColor(.secondary)
-            }
-            .frame(width: 120, height: 120)
-            
-            Text(viewModel.user?.login ?? "Login Placeholder")
-                .bold()
-                .font(.title3)
-            
-            Text(viewModel.user?.bio ?? "Bio Placeholder")
+        
+//        NavigationStack {
+//            NavigationLink(destination: HomeView(viewModel: viewModel)) {
+                VStack {
+                    
+                    AsyncImage(url: URL(string: viewModel.user?.avatarUrl ?? "")) { image in
+                        image
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .clipShape(Circle())
+                    } placeholder: {
+                        Circle()
+                            .foregroundColor(.secondary)
+                    }
+                    .frame(width: 120, height: 120)
+                    
+                    Text(viewModel.user?.login ?? "Login Placeholder")
+                        .bold()
+                        .font(.title3)
+                    
+                    Text(viewModel.user?.bio ?? "Bio Placeholder")
+                        .padding()
+                    
+                    Spacer()
+                }
                 .padding()
-            
-            Spacer()
-        }
-        .padding()
+//            }
+//            
+//        }
+        
+        
         
         // exibicao de erro na tela UI
         .task { // rever o que e task
