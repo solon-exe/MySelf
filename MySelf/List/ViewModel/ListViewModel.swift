@@ -21,3 +21,19 @@ extension ListViewModel {
         newItem = ""
     }
 }
+
+extension ListViewModel {
+    func toggle(_ item: Items) {
+        if let index = list.firstIndex(where: { $0.id == item.id }) {
+            self.list[index].completed.toggle()
+        }
+    }
+    
+    func remove(atOffsets offsets: IndexSet) {
+        list.remove(atOffsets: offsets)
+    }
+}
+
+extension ListViewModel {
+    
+}
