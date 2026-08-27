@@ -9,4 +9,5 @@ import Foundation
 
 enum HomeUIState: Hashable{
     case github
+    case list
 }

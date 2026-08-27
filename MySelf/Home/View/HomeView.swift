@@ -15,12 +15,15 @@ struct HomeView: View {
         NavigationStack {
             VStack {
                 NavigationLink("github", value: HomeUIState.github)
+                NavigationLink("list", value: HomeUIState.list)
             }
             .navigationTitle("Home")
             .navigationDestination(for: HomeUIState.self) { page in
                 switch page {
                 case .github:
                     GithubProfileView(viewModel: GithubProfileViewModel())
+                case .list:
+                    ListView(viewModel: ListViewModel())
                 }
             }
         }
