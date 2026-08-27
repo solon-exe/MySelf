@@ -34,6 +34,3 @@ extension ListViewModel {
     }
 }
 
-extension ListViewModel {
-    
-}
