@@ -4,15 +4,11 @@
 //
 //  Created by Solon Rios Soares on 04/08/26.
 //
- import Foundation
+import Foundation
+import Combine
 
-class Items: Identifiable {
+struct Items: Identifiable {
     var id: UUID = UUID()
     var name: String
-    var completed: Bool
-    
-    init(name: String, completed: Bool = false) {
-        self.name = name
-        self.completed = completed
-    }
+    var completed: Bool = false
 }

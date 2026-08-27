@@ -105,6 +105,7 @@ extension SignInView {
                 .padding(25)
             
             ZStack {
+                // TODO: Refactor
                 NavigationLink(
                     destination: SignUpView(viewModel: SignUpViewModel()),
                     tag: 1,

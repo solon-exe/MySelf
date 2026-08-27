@@ -7,11 +7,12 @@
 
 import SwiftUI
 import Combine
+import SwiftData
 
 struct ListView: View {
     
-    @ObservedObject var viewModel: ListViewModel
     
+    @ObservedObject var viewModel: ListViewModel
     
     var body: some View {
         VStack {
@@ -38,11 +39,29 @@ struct ListView: View {
             .padding(.horizontal)
             List {
                 Section("") {
-                    ForEach(viewModel.list) { Item in
-                        Text(Item.name)
+                    ForEach(viewModel.list) { item in
+                        Button {
+                            viewModel.toggle(item)
+                        } label: {
+                            HStack {
+                                Image(systemName: item.completed ? "checkmark.circle.fill" : "circle")
+                                    .foregroundStyle(item.completed ? .green : .secondary)
+
+                                Text(item.name)
+                                    .foregroundStyle(item.completed ? .secondary : .primary)
+                                    .strikethrough(item.completed, color: .secondary)
+                                    .lineLimit(2)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .onDelete { indexSet in
+                        viewModel.remove(atOffsets: indexSet)
                     }
                 }
+                
             }
+            
         }
         
     }
