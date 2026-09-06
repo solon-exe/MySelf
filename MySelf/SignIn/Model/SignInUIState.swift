@@ -7,9 +7,10 @@
 
 import Foundation
 
-enum SignInUIState {
+enum SignInUIState: Hashable {
     case none
     case loading
     case goToHomeScreen
+    case goToSignUpScreen
     case error(String)
 }
