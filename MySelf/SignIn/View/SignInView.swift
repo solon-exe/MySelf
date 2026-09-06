@@ -12,56 +12,47 @@ struct SignInView: View {
     
     @ObservedObject var viewModel: SignInViewModel
     
-    
-    @State var action: Int? = 0
-    
+    // REPLACE: Use a Bool for controlling SignUp navigation
+    @State private var showSignUp = false
     @State var navigationHidden = true
     
     var body: some View {
         ZStack {
-            if case SignInUIState.goToHomeScreen = viewModel.uiState { // virifica se o UIState recebe o estado de goToHomeScreen, se receber muda a tela
+            if case SignInUIState.goToHomeScreen = viewModel.uiState {
                 HomeView(viewModel: HomeViewModel())
             } else {
-                NavigationView {
-                    
+                NavigationStack {
                     ScrollView(showsIndicators: false) {
-                    
                         VStack(alignment: .center, spacing: 20) {
                             Spacer(minLength: 36)
-                            
                             VStack(alignment: .center, spacing: 8) {
                                 Image("MySelf_logo")
                                     .resizable()
                                     .scaledToFit()
                                     .frame(width: 220, height: 220)
-
+                                
                                 Text("Login")
                                     .foregroundColor(.blue)
                                     .font(Font.system(.title).bold())
                                     .padding(8)
-
-                                usernameField
-
-                                passwordField
-
-                                signInButton
                                 
+                                usernameField
+                                passwordField
+                                signInButton
                                 signUpLink
-                               
                             }
-                            
                         }
-                        
-                        
                     }
                     .padding(.horizontal, 32)
                     .navigationBarTitle("Login", displayMode: .inline)
                     .navigationBarHidden(self.navigationHidden)
+                    // MODERN: Present SignUpView when showSignUp == true
+                    .navigationDestination(isPresented: $showSignUp) {
+                        SignUpView(viewModel: SignUpViewModel())
+                    }
                 }
             }
         }
-        
-        
     }
 }
 
@@ -90,10 +81,6 @@ extension SignInView {
             viewModel.login(username: viewModel.username, password: viewModel.password)
         },
         text: "Sign In")
-        
-//        Button("Sign In") {
-//            self.viewModel.login(username: self.viewModel.username, password: self.viewModel.password)
-//        }
     }
 }
 
@@ -104,17 +91,8 @@ extension SignInView {
                 .foregroundColor(.gray)
                 .padding(25)
             
-            ZStack {
-                // TODO: Refactor
-                NavigationLink(
-                    destination: SignUpView(viewModel: SignUpViewModel()),
-                    tag: 1,
-                    selection: $action,
-                    label: { EmptyView() })
-                    
-                Button("Sign Up") {
-                    self.action = 1
-                }
+            Button("Sign Up") {
+                showSignUp = true
             }
         }
     }
@@ -123,3 +101,4 @@ extension SignInView {
 #Preview {
     SignInView(viewModel: SignInViewModel())
 }
+
